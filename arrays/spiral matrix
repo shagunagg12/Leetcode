@@ -2,7 +2,7 @@ class Solution {
     public List<Integer> spiralOrder(int[][] mat) {
         int m=mat.length;
         int n=mat[0].length;
-        int top=0,left=0,right=n,bottom=m;
+        int top=0,left=0,right=n-1,bottom=m-1;
         List<Integer> ans= new ArrayList<>();
         while(top<=bottom && left<=right){
             for(int i=left;i<=right;i++)
