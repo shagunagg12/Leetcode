@@ -1,0 +1,50 @@
+class Solution {
+    private int[][] dp= new int[100001][3];
+    public int maxTwoEvents(int[][] events) {
+       Arrays.sort(events,(a,b)-> Integer.compare(a[0],b[0]));
+       for(int[] row:dp){
+        Arrays.fill(row,-1);
+       
+       }
+        return solve(events,0,0);
+
+       
+
+        
+    }
+     private int solve(int[][] events,int i ,int count){
+        int n=events.length;
+        if(count==2 || i>=n){
+            return 0;
+
+        }
+
+        int nextvalid= binarysearch(events,events[i][1]);
+
+        int take = events[i][2]+ solve(events,nextvalid,count+1);
+        int nottake= solve(events,i+1,count);
+
+        dp[i][count]=Math.max(take,nottake);
+
+        return dp[i][count];
+
+
+     }
+     private int binarysearch(int[][] events,int end ){
+        int left=0;
+        int n=events.length;
+        int right=n-1;
+        int result=n;
+        while(left<=right){
+            int mid=(left+right)/2;
+            if(events[mid][0]>end){
+                result=mid;
+                right=mid-1;
+
+            }
+            else
+            left=mid+1;
+        }
+        return result;
+     }
+}
