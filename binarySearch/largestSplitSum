@@ -1,0 +1,44 @@
+class Solution {
+    public int splitArray(int[] nums, int k) {
+        int n=nums.length;
+        int max=0;
+        int sum=0;
+        int result=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]>max)
+            max=nums[i];
+            sum+=nums[i];
+
+        }
+        int left=max;
+        int right=sum;
+
+        while(left<=right){
+            int mid=(left+right)/2;
+            int split=largestsum(nums,mid);
+            if(split<=k){
+                result=mid;
+                right=mid-1;
+               
+            }
+            else
+            left=mid+1;
+        }
+        return result;
+    }
+    private int largestsum(int[] nums ,int maximum){
+        int sum=0;
+        int split=1;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(sum>maximum){
+                split++;
+                sum=nums[i];
+            }
+
+        }
+        return split;
+    }
+
+
+}
