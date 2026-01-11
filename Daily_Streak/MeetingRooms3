@@ -1,4 +1,5 @@
 class Solution {
+    
     public int mostBooked(int n, int[][] meetings) {
        
         Arrays.sort(meetings, (a, b) -> Integer.compare(a[0], b[0]));
