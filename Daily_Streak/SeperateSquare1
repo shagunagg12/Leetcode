@@ -1,0 +1,42 @@
+class Solution {
+    public double separateSquares(int[][] squares) {
+        double low=Double.MAX_VALUE;
+        double high =Double.NEGATIVE_INFINITY;
+        double totalArea=0.0;
+
+        for(int[] it:squares){
+            low=Math.min(low,it[1]);
+            high=Math.max(high,it[1]+it[2]);
+            double l=it[2];
+            totalArea+=l*l;
+        }
+        double half= totalArea/2.0;
+
+        while(high-low>1e-6){
+            double mid= (low+high)/2.0;
+            double belowArea=0.0;
+
+            for(int[]sq:squares){
+                double y=sq[1];
+                double l=sq[2];
+                if(mid<=y)
+                continue;
+                else if(mid>=y+l)
+                belowArea+=l*l;
+                else{
+                    belowArea+= l*(mid-y);
+                }
+            }
+                if(belowArea<half)
+                low=mid;
+                else 
+                high=mid;
+
+
+            
+
+           
+        }
+        return (low + high) / 2.0;
+    }
+}
