@@ -1,0 +1,25 @@
+class Solution {
+    public int maximizeSquareHoleArea(int n, int m, int[] hBars, int[] vBars) {
+        int hmax= Consecutivespace(hBars);
+        int vmax= Consecutivespace(vBars);
+        int side = Math.min(hmax,vmax);
+        return side*side;
+    }
+
+    private int Consecutivespace(int[] bars){
+        Arrays.sort(bars);
+        int curlength=1;
+        int maxlength=1;
+
+        for(int i=1;i<bars.length;i++){
+            if(bars[i]==bars[i-1]+1)
+            curlength++;
+            else
+            curlength=1;
+
+            maxlength=Math.max(curlength,maxlength); 
+
+        }
+        return maxlength+1;
+    }
+}
