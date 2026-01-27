@@ -1,0 +1,50 @@
+class Solution {
+    public int minCost(int n, int[][] edges) {
+        List<List<int[]>> list= new ArrayList<>();
+       
+       for (int i = 0; i < n; i++) {
+    list.add(new ArrayList<>());
+}
+
+        for(int[] e:edges){
+            int u=e[0];
+            int v=e[1];
+            int w=e[2];
+           
+            list.get(u).add(new int[] {v,w});
+            list.get(v).add(new int[] {u,2*w});
+
+           
+        }
+        PriorityQueue<int[]> q= new PriorityQueue<>((a,b)->Integer.compare(a[0], b[0]));
+        
+        int[] dist= new int[n];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+
+        int src=0;
+        int dest=n-1;
+        dist[src]=0;
+        q.add(new int[]{0,src});
+
+        while(!q.isEmpty()){
+            int[] node= q.poll();
+            int cost=node[0];
+            int curnode=node[1];
+            if(cost>dist[curnode])
+            continue;
+            if (curnode == dest) return cost;
+
+            for(int[] nei: list.get(curnode)){
+                int weight=nei[1];
+                int next=nei[0];
+                if(cost+weight<dist[next]){
+                    dist[next]=cost+weight;
+                    q.add(new int[]{dist[next],next});
+                }
+            }
+            
+        }
+        return -1;
+
+    }
+}
